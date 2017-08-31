@@ -35,6 +35,9 @@ status = vsi.createSignalGroup(GROUPNUM)
 signal_to_number = {}
 number_to_signal = {}
 
+# TESTING
+WAIT = False
+
 def set_signal_number_map(new_signal_to_number):
     global signal_to_number
     global number_to_signal
@@ -68,6 +71,7 @@ def send(signal_name, value):
             value_int, value_str)
 
 def receive():
+    global WAIT
     # This function should use the new functions with group support to monitor
     # group of signals.
 
@@ -77,16 +81,14 @@ def receive():
     #
     # get the latest (signal, value) among our watched signals without waiting
     # if none is available
-    results = vsi.getOldestInGroup(GROUPNUM, False)
 
+    results = vsi.getOldestInGroup(GROUPNUM, WAIT)
     # TODO: this should be our behavior (to match ZeroMQ) but, as of this
     # writing, it deadlocks AND puts the DB in a bad state (where it will always
     # deadlock even if reading the oldest in the group WITHOUT blocking)
-    """
+
     # get the latest (signal, value) among our watched signals
     # wait if none exist
-    results = vsi.getOldestInGroup(GROUPNUM, True)
-    """
 
     if type(results) is not list or len(results) < 1:
         return None

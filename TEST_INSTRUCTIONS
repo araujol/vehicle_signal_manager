@@ -1,0 +1,28 @@
+Replace PATH_TO with your correct path for those directories.
+
+1) Init DB with signals:
+
+   $ cd vehicle_signal_interface/
+   $ LD_LIBRARY_PATH=src build/src/importVSS /PATH_TO/vehicle_signal_manager/signal_number_maps/samples.vsi
+
+2) Enter to the vehicle_signal_manager dir:
+
+  $ cd vehicle_signal_manager/
+
+3) Run sender:
+
+   $ LD_LIBRARY_PATH=/PATH_TO/vehicle_signal_interface/src/ PYTHONPATH=/PATH_TO/vehicle_signal_interface/build/python-interfaces/ ./test_vsi_sender.py
+
+4) Run receiver:
+
+   $ LD_LIBRARY_PATH=/PATH_TO/vehicle_signal_interface/src/ PYTHONPATH=/PATH_TO/vehicle_signal_interface/build/python-interfaces/ ./test_vsi_receiver.py
+
+*** Now using wait:
+
+5) Run the receiver with '--wait':
+
+   $ LD_LIBRARY_PATH=/PATH_TO/vehicle_signal_interface/src/ PYTHONPATH=/PATH_TO/vehicle_signal_interface/build/python-interfaces/ ./test_vsi_receiver.py --wait
+
+6) In another terminal, run the sender:
+
+   $ LD_LIBRARY_PATH=/PATH_TO/vehicle_signal_interface/src/ PYTHONPATH=/PATH_TO/vehicle_signal_interface/build/python-interfaces/ ./test_vsi_sender.py
