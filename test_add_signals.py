@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
 #
-# Receive VSI signal
+# Add signals to signal group
 #
 
-import sys
 import ipc.vsi
 import vsmlib.utils
 
-if len(sys.argv) > 1:
-    ipc.vsi.WAIT = True
-
+ipc.vsi.init_group()
 sig_num, _ = vsmlib.utils.parse_signal_num_file("signal_number_maps/samples.vsi")
-ipc.vsi.set_signal_number_map(sig_num)
-
-print(ipc.vsi.receive())
+ipc.vsi.add_signals_to_group(sig_num)

@@ -3,7 +3,6 @@
 # Send VSI signal
 #
 
-import vsi_py as vsi
 import ipc.vsi
 import vsmlib.utils
 

@@ -29,14 +29,18 @@ DOMAIN = 1
 # measured in real-world scenarios).
 
 # delete this group before creating it to reset it to an empty state
-status = vsi.deleteSignalGroup(GROUPNUM)
-status = vsi.createSignalGroup(GROUPNUM)
+#status = vsi.deleteSignalGroup(GROUPNUM)
+#status = vsi.createSignalGroup(GROUPNUM)
 
 signal_to_number = {}
 number_to_signal = {}
 
 # TESTING
 WAIT = False
+
+def init_group():
+    vsi.deleteSignalGroup(GROUPNUM)
+    vsi.createSignalGroup(GROUPNUM)
 
 def set_signal_number_map(new_signal_to_number):
     global signal_to_number
@@ -45,11 +49,12 @@ def set_signal_number_map(new_signal_to_number):
     # NOTE: this assumes the signal numbers are unique (which they should be)
     number_to_signal = {v: k for k, v in signal_to_number.items()}
 
+def add_signals_to_group(signal_to_number):
     for signum in signal_to_number.values():
         # TODO: look this up? Or just get it from the map passed in above
         name = ""
-
         status = vsi.addSignalToGroup(DOMAIN, signum, name, GROUPNUM)
+        print("Added signal ID: {} ({})".format(signum, status))
         # TODO: check status value; non-zero indicates error
 
 def send(signal_name, value):
